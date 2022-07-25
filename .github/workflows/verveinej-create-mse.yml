@@ -38,7 +38,7 @@ jobs:
 
       # generate the MSE
       - name: Generate the MSE
-        run: mkdir $GITHUB_WORKSPACE/verveinej/verveinej.sh $GITHUB_WORKSPACE/main/$SOURCE_ROOT -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse
+        run: $GITHUB_WORKSPACE/verveinej/verveinej.sh $GITHUB_WORKSPACE/main/$SOURCE_ROOT -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse
         
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
