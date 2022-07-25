@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: main
 
-name: Generate MSE with VerveineJ
+name: Generate Famix Java Model with VerveineJ and push it (with sources) to gh-pages
 
 permissions:
   contents: write
