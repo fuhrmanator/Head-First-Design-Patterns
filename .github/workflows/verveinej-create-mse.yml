@@ -37,7 +37,7 @@ jobs:
           java-version: '11'
 
       # debug
-      - name Verify the verveinej path
+      - name: Verify the verveinej path
         run: ls $GITHUB_WORKSPACE/verveinej/
 
       # generate the MSE
