@@ -1,0 +1,46 @@
+on:  
+  workflow_dispatch:
+  push:
+    branches: main
+  pull_request:
+    branches: main
+
+name: Generate MSE with VerveineJ
+
+permissions:
+  contents: write
+
+# define relative path of where VerveineJ should start its scan
+env:
+  SOURCE_ROOT: src
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          path: main
+              
+      - name: Check out VerveineJ
+        uses: actions/checkout@v3
+        with:
+          path: verveinej
+              
+      # add software dependencies here
+
+      - name: Install java (for verveinej)
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu' # See 'Supported distributions' for available options
+          java-version: '11'
+
+      # generate the MSE
+      - name: Generate the MSE
+        run: mkdir $GITHUB_WORKSPACE/verveinej/verveinej.sh $GITHUB_WORKSPACE/main/$SOURCE_ROOT -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse
+        
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: $GITHUB_WORKSPACE/main/$SOURCE_ROOT
