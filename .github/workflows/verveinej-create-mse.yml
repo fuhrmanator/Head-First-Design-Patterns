@@ -40,10 +40,16 @@ jobs:
           java-version: '17'
 
       - name: Create a Famix Java model (MSE file)
-        run: cd $GITHUB_WORKSPACE && verveinej/verveinej.sh -o $SOURCE_ROOT/FamixJavaModel_$VERVEINEJ_VERSION.mse $SOURCE_ROOT
+        run: cd $GITHUB_WORKSPACE && verveinej/verveinej.sh -o FamixJavaModel_$VERVEINEJ_VERSION.mse $SOURCE_ROOT
+
+      - name: Move model and copy sources to a folder for deployment
+        run: |
+          mkdir $GITHUB_WORKSPACE/__deploy &&\
+            mv $GITHUB_WORKSPACE/FamixJavaModel_$VERVEINEJ_VERSION.mse $GITHUB_WORKSPACE/__deploy &&\
+            cp -r $GITHUB_WORKSPACE/$SOURCE_ROOT $GITHUB_WORKSPACE/__deploy
 
       # Put the source and the MSE file into gh-pages branch
       - name: Push sources and Famix Java model to gh-pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ${{ env.SOURCE_ROOT }}
+          folder: __deploy
