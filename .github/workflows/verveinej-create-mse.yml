@@ -15,6 +15,7 @@ permissions:
 # define relative path of where VerveineJ should start its scan and place its MSE
 env:
   SOURCE_ROOT: src
+  VERVEINEJ_VERSION: v2.0.4
 
 jobs:
   build-deploy:
@@ -29,6 +30,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: moosetechnology/VerveineJ
+          ref: ${{ env.VERVEINEJ_VERSION }}
           path: verveinej
 
       - name: Install java (for verveinej)
@@ -38,7 +40,7 @@ jobs:
           java-version: '17'
 
       - name: Create a Famix Java model (MSE file)
-        run: $GITHUB_WORKSPACE/verveinej/verveinej.sh -o $GITHUB_WORKSPACE/$SOURCE_ROOT/FamixJavaModel.mse $GITHUB_WORKSPACE/$SOURCE_ROOT
+        run: $GITHUB_WORKSPACE/verveinej/verveinej.sh -o $GITHUB_WORKSPACE/$SOURCE_ROOT/FamixJavaModel_$VERVEINEJ_VERSION.mse $GITHUB_WORKSPACE/$SOURCE_ROOT
 
       # Put the source and the MSE file into gh-pages branch
       - name: Push sources and Famix Java model to gh-pages
