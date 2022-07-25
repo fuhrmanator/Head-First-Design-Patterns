@@ -26,6 +26,7 @@ jobs:
       - name: Check out VerveineJ
         uses: actions/checkout@v3
         with:
+          repository: moosetechnology/VerveineJ
           path: verveinej
               
       # add software dependencies here
@@ -36,11 +37,7 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '11'
 
-      # debug
-      - name: Verify the verveinej path
-        run: ls $GITHUB_WORKSPACE/verveinej/
-
-      # generate the MSE
+      # Run VerveineJ to generate an MSE of the java code
       - name: Generate the MSE
         run: $GITHUB_WORKSPACE/verveinej/verveinej.sh $GITHUB_WORKSPACE/main/$SOURCE_ROOT -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse
         
