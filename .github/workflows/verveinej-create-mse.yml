@@ -37,15 +37,15 @@ jobs:
           distribution: 'zulu' # See 'Supported distributions' for available options
           java-version: '17'
 
-      # Debug output
-      - name: validate paths
-        run: echo $GITHUB_WORKSPACE/main/$SOURCE_ROOT && ls $GITHUB_WORKSPACE/main/$SOURCE_ROOT
-
       # Run VerveineJ to generate an MSE of the java code
       - name: Generate the MSE
         run: $GITHUB_WORKSPACE/verveinej/verveinej.sh -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse $GITHUB_WORKSPACE/main/$SOURCE_ROOT
         
+      # Debug output
+      - name: Echo the paths, verify MSE is there
+        run: echo $GITHUB_WORKSPACE/main/$SOURCE_ROOT && echo ${{ github.workspace }}/main/${{ env.SOURCE_ROOT}} && ls $GITHUB_WORKSPACE/main/$SOURCE_ROOT 
+
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ${{ github.workspace }}/main/${{ env.SOURCE_ROOT}}/~
+          folder: ${{ github.workspace }}/main/${{ env.SOURCE_ROOT}} ~
