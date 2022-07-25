@@ -48,4 +48,4 @@ jobs:
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ${{ env.GITHUB_WORKSPACE }}/main/${{ env.SOURCE_ROOT }}
+          folder: ${{ GITHUB_WORKSPACE }}/main/${{ SOURCE_ROOT }}
