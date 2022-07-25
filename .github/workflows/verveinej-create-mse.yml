@@ -20,8 +20,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
-        with:
-          path: main
+#        with:
+#          path: main
               
       - name: Check out VerveineJ
         uses: actions/checkout@v3
@@ -39,13 +39,13 @@ jobs:
 
       # Run VerveineJ to generate an MSE of the java code
       - name: Generate the MSE
-        run: $GITHUB_WORKSPACE/verveinej/verveinej.sh -o $GITHUB_WORKSPACE/main/$SOURCE_ROOT/FamixJavaModel.mse $GITHUB_WORKSPACE/main/$SOURCE_ROOT
+        run: $GITHUB_WORKSPACE/verveinej/verveinej.sh -o $GITHUB_WORKSPACE/$SOURCE_ROOT/FamixJavaModel.mse $GITHUB_WORKSPACE/$SOURCE_ROOT
         
       # Debug output
       - name: Echo the paths, verify MSE is there
-        run: echo $GITHUB_WORKSPACE/main/$SOURCE_ROOT && echo ${{ github.workspace }}/main/${{ env.SOURCE_ROOT}} && ls $GITHUB_WORKSPACE/main/$SOURCE_ROOT 
+        run: echo $GITHUB_WORKSPACE/$SOURCE_ROOT && echo ${{ github.workspace }}/${{ env.SOURCE_ROOT}} && ls $GITHUB_WORKSPACE/$SOURCE_ROOT 
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ${{ github.workspace }}/main/~
+          folder: $${{ env.SOURCE_ROOT }}
